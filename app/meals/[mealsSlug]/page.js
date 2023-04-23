@@ -5,6 +5,19 @@ import { getMeal } from '@/lib/meals';
 
 import classes from './page.module.css';
 
+export async function generateMetadata({ params }) {
+  const meal = await getMeal(params.mealsSlug);
+
+  if (!meal) {
+    notFound();
+  }
+
+  return {
+    title: meal.title,
+    description: meal.summary
+  };
+}
+
 export default async function MealsDetailPage({ params }) {
   const meal = await getMeal(params.mealsSlug);
 
